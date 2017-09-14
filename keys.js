@@ -9,4 +9,17 @@ var twitterKeys = {
 
 module.exports = twitterKeys;
 
+// 
+// spotify client ID 568cf1cde13d43cd868f56e59435e241
+//         client secret 61ce0dc4b9f8434bb21935e3de8bfee8
 
+   var spotifyKeys = {
+      client_id: "568cf1cde13d43cd868f56e59435e241",
+      client_secret: "61ce0dc4b9f8434bb21935e3de8bfee8"
+    };
+    
+module.exports = spotifyKeys;
+
+
+
+// http://www.omdbapi.com/?t=Titanic&apiKey=40e9cece

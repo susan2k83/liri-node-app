@@ -2,7 +2,9 @@
 var request = require("request");
 var fs = require("fs");
 var Twitter = require("twitter");
+var Spotify = require("spotify");
 var keys = require("./keys");
+
 
 var userInput = process.argv;
 
@@ -15,8 +17,20 @@ var client = new Twitter({
     access_token_secret: keys.access_token_secret
 });
 
+var spotifyClient = new Spotify({
+    client_id: keys.client_id,
+    consumer_secret: keys.consumer_secret,
+});
+
+
 if(userInput[2] === "movie-this") {
+    request("http://www.omdbapi.com/?t=" + userInput + "&apiKey=40e9cece", function (error, response, body) {
+      console.log("error:", error);
+      console.log("")
+    
     console.log('will get me movie info');
+
+    }
 }
 
 if(userInput[2] === "my-tweets") {
@@ -31,5 +45,18 @@ if(userInput[2] === "my-tweets") {
       } else {
           console.log(error);
       }
-    });
+
+
+      if(userInput[2] === "spotify-this-song") {
+        spotifyClient.searchTracks('Love', function(err, data) {
+            if (err) {
+              console.error('Something went wrong', err.message);
+              return;
+            }
+          
+            // Print some information about the results
+            console.log('I got ' + data.body.tracks.total + ' results!');
+          
+      }
+    )};
 }
