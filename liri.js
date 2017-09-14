@@ -53,18 +53,19 @@ if(action === "my-tweets") {
           console.log(error);
       }
     });
+}
 
+if(action === "spotify-this-song") {
+    spotifyClient.search({ type: 'track', query: userInput, limit: 1 }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        var result = data.tracks.items[0];
+        // console.log(result);
+        console.log("Artist:", result.album.artists[0].name);
+        console.log("Song Name:", result.name);
+        console.log("Album:", result.album.name);
+        console.log("Preview Link:", result.album.external_urls.spotify);
 
-    if(action === "spotify-this-song") {
-        spotifyClient.searchTracks('Love', function(err, data) {
-            if (err) {
-              console.error('Something went wrong', err.message);
-              return;
-            }
-          
-            // Print some information about the results
-            console.log('I got ' + data.body.tracks.total + ' results!');
-          
-      }
-    )};
+    });
 }
