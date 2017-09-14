@@ -1,5 +1,3 @@
-console.log('this is loaded');
-
 var twitterKeys = {
   consumer_key: "S8MF1dhSfDEaO3VdlNcJIBqEW",
   consumer_secret: "2xQN0xRVpJnS0nwXsZb0yk11HG4BZv9aNtsbOUiPYePkiu43VK", 
@@ -14,8 +12,8 @@ module.exports = twitterKeys;
 //         client secret 61ce0dc4b9f8434bb21935e3de8bfee8
 
    var spotifyKeys = {
-      client_id: "568cf1cde13d43cd868f56e59435e241",
-      client_secret: "61ce0dc4b9f8434bb21935e3de8bfee8"
+      id: "568cf1cde13d43cd868f56e59435e241",
+      secret: "61ce0dc4b9f8434bb21935e3de8bfee8"
     };
     
 module.exports = spotifyKeys;

@@ -2,11 +2,11 @@
 var request = require("request");
 var fs = require("fs");
 var Twitter = require("twitter");
-var Spotify = require("spotify");
+var Spotify = require("node-spotify-api");
 var keys = require("./keys");
 
-
-var userInput = process.argv;
+var action = process.argv[2];
+var userInput = process.argv[3];
 
 //take the twitterKeys object from 
 //keys.js and import it into Twitter
@@ -18,22 +18,29 @@ var client = new Twitter({
 });
 
 var spotifyClient = new Spotify({
-    client_id: keys.client_id,
-    consumer_secret: keys.consumer_secret,
+    id: "568cf1cde13d43cd868f56e59435e241",
+    secret: "61ce0dc4b9f8434bb21935e3de8bfee8",
 });
 
 
-if(userInput[2] === "movie-this") {
+if(action === "movie-this") {
     request("http://www.omdbapi.com/?t=" + userInput + "&apiKey=40e9cece", function (error, response, body) {
-      console.log("error:", error);
-      console.log("")
-    
-    console.log('will get me movie info');
-
-    }
+        if(error) {
+            console.log("error:", error);
+        } else {
+            var bodyObject = JSON.parse(body);
+            console.log("Title", bodyObject.Title);
+            console.log("Year", bodyObject.Year);
+            console.log("Rating", bodyObject.Ratings[1].Value);
+            console.log("Country", bodyObject.Country);
+            console.log("Language", bodyObject.Language);
+            console.log("Plot", bodyObject.Plot);
+            console.log("Actors", bodyObject.Actors);
+        }
+    });
 }
 
-if(userInput[2] === "my-tweets") {
+if(action === "my-tweets") {
     var params = {q: 'susantarnowski1', count: 20};
     client.get('search/tweets', params, function(error, tweets, response) {
       if (!error) {
@@ -45,9 +52,10 @@ if(userInput[2] === "my-tweets") {
       } else {
           console.log(error);
       }
+    });
 
 
-      if(userInput[2] === "spotify-this-song") {
+    if(action === "spotify-this-song") {
         spotifyClient.searchTracks('Love', function(err, data) {
             if (err) {
               console.error('Something went wrong', err.message);
