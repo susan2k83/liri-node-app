@@ -69,3 +69,32 @@ if(action === "spotify-this-song") {
 
     });
 }
+            // The code below does not work, I think I might be on the right track...?
+    var fs = require("fs");
+    fs.readFile("random.txt", "utf-8",function(err, data) {
+        if(err) {
+            return console.log("error");
+        }
+
+        var data = data.split(',');
+
+        if (action === data[0] && userInput ===[1]) {
+
+            spotifyClient.search({ type: 'track', query: userInput, limit: 1 }, function(err, data) {
+                if (err) {
+                    return console.log('Error occurred: ' + err);
+                }
+            
+                var result = data.tracks.items[0];
+                // console.log(result);
+                console.log("Artist:", result.album.artists[0].name);
+                console.log("Song Name:", result.name);
+                console.log("Album:", result.album.name);
+                console.log("Preview Link:", result.album.external_urls.spotify);
+            }
+
+    });     
+    //  not sure where the other bracket needs to be, VSC is showing a red underscore 
+    
+
+    
